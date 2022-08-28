@@ -11,7 +11,7 @@ function ExecuteFunction(...args) {}
  */
 class Event {
   /**
-   * @param {string} name 
+   * @param {K} name 
    * @param {ExecuteFunction<K>} execute 
    */
   constructor(name, execute) {

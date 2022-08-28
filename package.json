@@ -1,0 +1,31 @@
+{
+  "name": "custom-bot",
+  "version": "0.0.1",
+  "description": "Create your own commands on this bot!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js",
+    "translate": "node ./translate.js 1fc7b039-f8f2-018c-e982-3a7c492f0d77:fx"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "custom"
+  ],
+  "author": "Du_Cassoulet",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "better-sqlite3": "^7.6.2",
+    "colors": "^1.4.0",
+    "discord-api-types": "^0.37.5",
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.1",
+    "quick.db": "^9.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19",
+    "translate": "^1.4.1"
+  }
+}

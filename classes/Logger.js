@@ -4,7 +4,7 @@ class Logger {
   constructor() {}
 
   log(str) {
-    console.log(`[${new Date().toLocaleString()}] ${str}`.white);
+    console.log(`✔️  [${new Date().toLocaleString()}] ${str}`.white);
   }
 
   success(str) {

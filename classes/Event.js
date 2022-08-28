@@ -1,13 +1,11 @@
-const Discord = require("discord.js");
-
 /**
- * @template {keyof Discord.ClientEvents} K
- * @param {Discord.ClientEvents[K]} args
+ * @template {keyof import("discord.js").ClientEvents} K
+ * @param {import("discord.js").ClientEvents[K]} args
  */
 function ExecuteFunction(...args) {}
 
 /**
- * @template {keyof Discord.ClientEvents} K
+ * @template {keyof import("discord.js").ClientEvents} K
  */
 class Event {
   /**

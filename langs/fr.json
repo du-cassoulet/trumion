@@ -1,3 +1,12 @@
 {
-  "HELP_STORE": "Cette commande se présente sous la forme d'une liste de commandes. Cliquez sur le bouton associé à l'une des commandes créées par la communauté pour la télécharger sur votre serveur."
+  "HELP_STORE": "Cette commande se présente sous la forme d'une liste de commandes. Cliquez sur le bouton associé à l'une des commandes créées par la communauté pour la télécharger sur votre serveur.",
+  "HELP_HELP": "Utilisez la commande help pour obtenir une liste des commandes disponibles ou pour obtenir plus de détails sur l'utilisation d'une commande spécifique.",
+  "HELP_HELP_COMMAND": "Le nom ou l'un des alias de la commande dont vous voulez connaître les détails.",
+  "HELP": "Aide",
+  "INVALID_COMMAND": "La commande %1 n'existe pas.",
+  "COMMAND_ALIASES": "Alias de commande",
+  "HELP_FOR": "Aide pour la commande %1",
+  "COMMAND_NAME": "Nom de la commande",
+  "COMMAND_DESCRIPTION": "Description de la commande",
+  "NO_ALIASES": "Pas d'alias"
 }

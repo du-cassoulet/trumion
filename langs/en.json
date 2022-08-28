@@ -1,3 +1,12 @@
 {
-  "HELP_STORE": "This command is in the form of a list of commands. Click on the button associated with one of the commands created by the community to upload it to your server."
+  "HELP_STORE": "This command is in the form of a list of commands. Click on the button associated with one of the commands created by the community to upload it to your server.",
+  "HELP_HELP": "Use the help command to get a list of available commands or to get more details on how to use a specific command.",
+  "HELP_HELP_COMMAND": "The name or one of the aliases of the command whose details you want to know.",
+  "HELP": "Help",
+  "INVALID_COMMAND": "The command %1 doesn't exist.",
+  "HELP_FOR": "Help for the command %1",
+  "COMMAND_NAME": "Command name",
+  "COMMAND_ALIASES": "Command aliases",
+  "COMMAND_DESCRIPTION": "Command description",
+  "NO_ALIASES": "No aliases"
 }

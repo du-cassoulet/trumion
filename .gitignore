@@ -3,4 +3,5 @@ node_modules/
 database.sqlite
 package-lock.json
 package.json
+yarn.lock
 .env

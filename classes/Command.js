@@ -82,7 +82,7 @@ class Command {
   constructor({ name, aliases, description, options, execute, autocomplete }) {
     this.name = name;
     this.aliases = aliases || [];
-    this.description = description || "No description for this command.";
+    this.description = description || "NO_DESCTIPTION";
     this.options = options || [];
     this.execute = execute || function() {}
     this.autocomplete = autocomplete || function() {}

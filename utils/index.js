@@ -1,5 +1,7 @@
-const clearify = require("./clearify");
-const capitalize = require("./capitalize");
+const clearify = require("./clearify.js");
+const capitalize = require("./capitalize.js");
 
-module.exports.clearify = clearify;
-module.exports.capitalize = capitalize;
+module.exports = {
+  clearify,
+  capitalize
+}

@@ -1,4 +1,4 @@
-const Event = require("../classes/Event");
+const Event = require("../classes/Event.js");
 
 module.exports = new Event("messageCreate", async function messageCreate(message) {
   if (message.author.bot || !message.guildId || !message.content.startsWith(client.prefix)) return;
@@ -18,7 +18,7 @@ module.exports = new Event("messageCreate", async function messageCreate(message
    */
   function executeCommand(command) {
     command.execute({ message, args, translate });
-    logger.log(`Command ${command.name} executed by ${message.author.tag}`);
+    logger.log(`Command /${command.name} executed by ${message.author.tag}`);
   }
 
   const args = message.content.slice(client.prefix.length).trim().split(/ +/);

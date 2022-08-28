@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Command = require("../classes/Command");
+const Command = require("../classes/Command.js");
 
 module.exports = new Command({
   name: "help",

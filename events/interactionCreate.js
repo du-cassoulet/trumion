@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Event = require("../classes/Event");
+const Event = require("../classes/Event.js");
 
 module.exports = new Event("interactionCreate", async function interactionCreate(interaction) {
   const lang = await tables.guilds.get(`${interaction.guildId}.lang`) || "en";
@@ -66,6 +66,7 @@ module.exports = new Event("interactionCreate", async function interactionCreate
     args = args.join(" ").split(/ +/g);
     if (args[0] === "") args = [];
   
+    logger.log(`Command /${command.name} executed by ${interaction.user.tag}`);
     command.execute({
       message: interaction,
       args: args,

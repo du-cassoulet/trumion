@@ -1,22 +1,22 @@
-require("colors");
+const { default: chalk } = require("chalk");
 
 class Logger {
   constructor() {}
 
   log(str) {
-    console.log(`✔️  [${new Date().toLocaleString()}] ${str}`.white);
+    console.log(chalk.white(`✔️  [${new Date().toLocaleString()}] ${str}`));
   }
 
   success(str) {
-    console.log(`✅ [${new Date().toLocaleString()}] ${str}`.green);
+    console.log(chalk.green(`✅ [${new Date().toLocaleString()}] ${str}`));
   }
 
   warn(str) {
-    console.log(`⚠️  [${new Date().toLocaleString()}] ${str}`.yellow);
+    console.log(chalk.yellow(`⚠️  [${new Date().toLocaleString()}] ${str}`));
   }
 
   error(str) {
-    console.log(`❌ [${new Date().toLocaleString()}] ${str}`.red);
+    console.log(chalk.red(`❌ [${new Date().toLocaleString()}] ${str}`));
   }
 }
 

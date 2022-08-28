@@ -36,7 +36,8 @@ class Securer {
       thread: message.thread,
       unpin: message.unpin,
       tts: message.tts,
-      type: message.type
+      type: message.type,
+      slash: message.slash
     }
   }
   

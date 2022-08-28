@@ -26,6 +26,14 @@ module.exports = new Command({
     }
   ],
   execute: async function({ message, args, translate }) {
+    async function generateCommandId() {
+      const dig = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"];
+      let id = "cmd-0x";
+      for (let i = 0; i < 8; i++) id += dig[Math.floor(Math.random() * dig.length)];
+      if (await tables.commands.has(id)) return await generateCommandId();
+      return id;
+    }
+
     const name = args?.[0]?.toLowerCase();
     const description = args?.slice(1)?.join(" ");
     const file = message.attachments.first()?.url;
@@ -38,6 +46,13 @@ module.exports = new Command({
       content: translate("COMMAND_HAS_DOT"),
       ephemeral: true
     });
+
+    if (message.slash) {
+      await message.reply({
+        content: translate("CREATING_COMMAND", `**/${name}**`)
+      });
+    }
+
     if (!description) return message.reply({
       content: translate("NO_COMMAND_DESCRIPTION"),
       ephemeral: true
@@ -48,14 +63,22 @@ module.exports = new Command({
     });
 
     const { data } = await axios.get(file);
-    await tables.guilds.set(`${message.guildId}.commands.${name}`, {
+    const cid = await generateCommandId();
+
+    await tables.commands.set(cid, {
       name: name,
       description: description,
       code: data
     });
 
-    message.reply({
-      content: translate("CREATED_COMMAND", `**/${name}**`)
-    });
+    if (message.slash) {
+      message.editReply({
+        content: translate("CREATED_COMMAND", `**/${name}**`, `\`${cid}\``)
+      });
+    } else {
+      message.reply({
+        content: translate("CREATED_COMMAND", `**/${name}**`, `\`${cid}\``)
+      });
+    }
   }
 });

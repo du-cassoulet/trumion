@@ -1,5 +1,4 @@
 const Babel = require("@babel/standalone");
-const BabelParser = require("@babel/parser");
 
 const MAX_SOURCE_ITERATIONS = 10000;
 

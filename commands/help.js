@@ -29,12 +29,15 @@ module.exports = new Command({
         }))
     );
   },
-  execute: function({ message, args, translate }) {
+  execute: async function({ message, args, translate }) {
     if (!args[0]) {
+      const customCommands = await tables.guilds.get(`${message.guildId}.commands`) || {};
+
       const embed = new Discord.EmbedBuilder()
       .setTitle(translate("HELP"))
       .setDescription(client.commands.toJSON().map((c) => `> **/${c.name}**\n${translate(c.description)}`).join("\n\n"))
       .setColor(client.embedColor)
+      .setFields({ name: "Custom commands", value: Object.values(customCommands).map((c) => c.name).join(", ") })
 
       message.reply({
         embeds: [embed]

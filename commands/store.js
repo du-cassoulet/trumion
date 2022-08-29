@@ -5,14 +5,43 @@ module.exports = new Command({
   name: "store",
   aliases: [],
   description: "HELP_STORE",
-  options: [],
-  execute: async function({ message, translate }) {
+  options: [
+    {
+      name: "page",
+      description: "HELP_STORE_PAGE",
+      type: Command.OptionTypes.INTEGER,
+      required: false
+    },
+    {
+      name: "search",
+      description: "HELP_STORE_SEARCH",
+      type: Command.OptionTypes.STRING,
+      required: false
+    }
+  ],
+  execute: async function({ message, args, translate }) {
     let commands = await tables.commands.all();
     commands = commands.map((c) => ({ id: c.id, ...c.value }));
 
     let page = 0;
-    let cmdsPerPage = 10;
+    let cmdsPerPage = 5;
     let maxPage = Math.ceil(commands.length / cmdsPerPage);
+    let filter = "";
+
+    if (args[0]) {
+      if (args[0] && !isNaN(args[0])) {
+        const newPage = Number(args[0]);
+
+        if (args[1]) filter = args[1].toLowerCase();
+        commands = commands.filter((c) => c.name.startsWith(filter) || c.id === filter);
+        maxPage = Math.ceil(commands.length / cmdsPerPage);
+
+        if (newPage >= 0 && newPage <= maxPage - 1) page = newPage - 1;
+      } else {
+        filter = args[0].toLowerCase();
+        commands = commands.filter((c) => c.name.startsWith(filter) || c.id === filter);
+      }
+    }
 
     async function embed(page, cmdsPerPage, maxPage) {
       const storeEmbed = new Discord.EmbedBuilder()
@@ -24,9 +53,11 @@ module.exports = new Command({
       const fields = [];
       
       for (const command of commands.slice(page * cmdsPerPage, page * cmdsPerPage + cmdsPerPage)) {
+        const authorTag = client.users.cache.get(command.author.id)?.tag || command.author.tag;
+
         fields.push({
           name: `> /${command.name} \`${command.id}\``,
-          value: `*${command.description}*`,
+          value: `*${command.description}*\n${translate("MADE_BY", authorTag)} • <t:${Math.round(command.createdAt / 1000)}>\n** **`,
           inline: false
         });
       }
@@ -35,9 +66,8 @@ module.exports = new Command({
       return storeEmbed;
     }
 
-    const botMessage = await message.reply({
-      embeds: [await embed(page, cmdsPerPage, maxPage)],
-      components: [new Discord.ActionRowBuilder().addComponents(
+    function components(page, maxPage) {
+      return new Discord.ActionRowBuilder().addComponents(
         new Discord.ButtonBuilder()
         .setCustomId(`remove-page:${message.id}`)
         .setDisabled(page <= 0)
@@ -53,7 +83,12 @@ module.exports = new Command({
         .setDisabled(page >= maxPage - 1)
         .setEmoji("▶️")
         .setStyle(Discord.ButtonStyle.Secondary)
-      )]
+      );
+    }
+
+    const botMessage = await message.reply({
+      embeds: [await embed(page, cmdsPerPage, maxPage)],
+      components: [components(page, maxPage)]
     });
 
     const modal = new Discord.ModalBuilder()
@@ -90,7 +125,7 @@ module.exports = new Command({
           break;
 
         case `go-to-page:${message.id}`:
-          interaction.showModal(modal);
+          interaction.showModal(modal).catch(() => {});
           const modalSubmit = await interaction.awaitModalSubmit({ time: 6e+4 }).catch(() => {});
           if (!modalSubmit) return interaction.reply({
             content: translate("TOOK_TOO_LONG_PAGE"),
@@ -104,7 +139,6 @@ module.exports = new Command({
             content: translate("INVALID_PAGE")
           });
 
-
           const newPage = Number(input) - 1;
           if (newPage > maxPage - 1 || newPage < 0) return modalSubmit.reply({
             ephemeral: true,
@@ -115,9 +149,10 @@ module.exports = new Command({
           break;
       }
 
-      interaction.message.edit({
-        embeds: [await embed(page, cmdsPerPage, maxPage)]
-      });
+      interaction.deferUpdate(interaction.message.edit({
+        embeds: [await embed(page, cmdsPerPage, maxPage)],
+        components: [components(page, maxPage)]
+      })).catch(() => {});
     });
 
     collector.on("end", async () => {

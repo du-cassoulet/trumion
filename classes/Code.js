@@ -1,6 +1,6 @@
 const Babel = require("@babel/standalone");
 
-const MAX_SOURCE_ITERATIONS = 10000;
+const MAX_SOURCE_ITERATIONS = 100000;
 
 class Code {
   /**
@@ -47,7 +47,10 @@ class Code {
             "global",
             "globalThis",
             "process",
-            "console"
+            "console",
+            "setTimeout",
+            "setImmediate",
+            "setInterval"
           ]
 
           const Require = "require";

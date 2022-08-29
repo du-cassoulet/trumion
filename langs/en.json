@@ -11,6 +11,9 @@
   "HELP_PULL_COMMAND": "Use this command to add an already created command to your server.",
   "HELP_PULL_COMMAND_ID": "The ID of the command that you want to add to your server.",
   "HELP_REFRESH_SLASH": "If you just added/removed a command from your server, you will need to refresh the slash commands of the server to avoid having \"ghost\" commands or not seeing the command that you just added.",
+  "HELP_STORE_PAGE": "The page that you want to select to discover other commands.",
+  "HELP_STORE_SEARCH": "The command you want to search for.",
+  "HELP_DELETE_COMMAND_COMMAND_ID": "The id of the command that you want to destroy.",
   "HELP": "Help",
   "INVALID_COMMAND": "The command %1 doesn't exist.",
   "HELP_FOR": "Help for the command %1",
@@ -34,5 +37,8 @@
   "MADE_BY": "Made by %1",
   "NO_PERMISSION_ADMIN": "You must have to me an administrator of this server to use this command.",
   "COMMAND_ALREADY_CREATED": "You already created a command named %1.",
-  "COMMAND_ALREADY_ADDED": "You already have a command named %1 in this server."
+  "COMMAND_ALREADY_ADDED": "You already have a command named %1 in this server.",
+  "NOT_COMMAND_ID": "You have to input a command ID. Exemple: %1.",
+  "INVALID_COMMAND_ID": "There is no command with this ID.",
+  "COMMAND_DELETED": "Successfully deleted the command %1."
 }

@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
 
 class Client extends Discord.Client {
   constructor() {
@@ -57,39 +55,6 @@ class Client extends Discord.Client {
       /** @type {import("./Event")} */
       const event = require(path.join(__dirname, "../events", file));
       this.on(event.name, (...args) => event.execute(...args));
-
-      this.once("ready", async function ready(client) {
-        const commands = client.commands.toJSON();
-        const rest = new REST({ version: "9" }).setToken(client.token);
-
-        function translateOptions(options) {
-          if (!options) return undefined;
-          
-          return options.map((option) => {
-            const description = translator.format("en", option.description);
-
-            const result = {
-              ...option,
-              description: description.length > 100 ? description.slice(0, 97) + "...": description,
-            };
-
-            if (result.options) result.options = translateOptions(option.options)
-            return result
-          });
-        }
-
-        await rest.put(Routes.applicationGuildCommands(client.user.id, "973949535359475814"), {
-          body: commands.map((command) => {
-            const description = translator.format("en", command.description);
-
-            return {
-              name: command.name,
-              description: description.length > 100 ? description.slice(0, 97) + "...": description,
-              options: translateOptions(command.options)
-            }
-          })
-        });
-      });
     }
   }
 }

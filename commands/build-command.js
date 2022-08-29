@@ -54,14 +54,14 @@ module.exports = new Command({
     });
 
     const userCommands = await tables.users.get(`${message.author.id}.commands`) || {};
-    if (Object.values(userCommands).includes(name)) return message.reply({
-      content: translate("COMMAND_ALREADY_CREATED"),
+    if (Object.values(userCommands).map((c) => c.name).includes(name)) return message.reply({
+      content: translate("COMMAND_ALREADY_CREATED", `**/${name}**`),
       ephemeral: true
     });
 
     const guildCommands = await tables.guilds.get(`${message.guildId}.commands`) || {};
-    if (Object.values(guildCommands).includes(name)) return message.reply({
-      content: translate("COMMAND_ALREADY_ADDED"),
+    if (Object.values(guildCommands).map((c) => c.name).includes(name)) return message.reply({
+      content: translate("COMMAND_ALREADY_ADDED", `**/${name}**`),
       ephemeral: true
     });
 

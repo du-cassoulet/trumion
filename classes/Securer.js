@@ -10,7 +10,22 @@ class Securer {
       author: message.author ?? this.secureUser(message.author),
       member: message.member ?? this.secureMember(message.member),
       guild: message.guild ?? this.secureGuild(message.guild),
-      reply: message.reply,
+      client: message.client ?? this.secureClient(message.client),
+      /**
+       * @param {import("discord.js").MessageOptions} options 
+       */
+      reply: async (options) => {
+        if (typeof options === "string") {
+          options = {
+            content: options,
+            reply: { failIfNotExists: false, messageReference: null }
+          }
+        }
+
+        options.reply.messageReference = message;
+        const botMessage = await message.channel.send(options);
+        return this.secureMessage(botMessage);
+      },
       channelId: message.channelId,
       guildId: message.guildId,
       toJSON: message.toJSON,
@@ -22,11 +37,11 @@ class Securer {
       components: message.components,
       embeds: message.embeds,
       attachments: message.attachments,
-      removeAttachments: message.removeAttachments,
+      removeAttachments: function(...args) { message.removeAttachments(...args) },
       deletable: message.deletable,
       hasThread: message.hasThread,
       inGuild: message.inGuild,
-      pin: message.pin,
+      pin: function(...args) { message.pin(...args) },
       pinnedpin: message.pinned,
       pinnable: message.pinnable,
       editedAt: message.editedAt,
@@ -34,7 +49,7 @@ class Securer {
       editable: message.editable,
       interaction: message.interaction,
       thread: message.thread,
-      unpin: message.unpin,
+      unpin: function(...args) { message.unpin(...args) },
       tts: message.tts,
       type: message.type,
       slash: message.slash
@@ -47,7 +62,10 @@ class Securer {
   secureChannel(channel) {
     return {
       guild: channel.guild ?? this.secureGuild(channel.guild),
-      send: channel.send,
+      send: async (...args) => {
+        const botMessage = await channel.send(...args);
+        this.secureMessage(botMessage);
+      },
       id: channel.id,
       createdAt: channel.createdAt,
       createInvite: channel.createInvite,
@@ -62,7 +80,7 @@ class Securer {
       bulkDelete: channel.bulkDelete,
       defaultAutoArchiveDuration: channel.defaultAutoArchiveDuration,
       edit: channel.edit,
-      delete: channel.delete,
+      delete: function(...args) { channel.delete(...args) },
       editable: channel.editable,
       guildId: channel.guildId,
       invitable: channel.invitable,
@@ -88,7 +106,7 @@ class Securer {
       lastPinAt: channel.lastPinAt,
       lastPinTimestamp: channel.lastPinTimestamp,
       toJSON: channel.toJSON,
-      toString: channel.toString,
+      toString: channel.toString
     }
   }
 
@@ -106,21 +124,21 @@ class Securer {
       afkChannelId: guild.afkChannelId,
       available: guild.available,
       banner: guild.banner,
-      bannerURL: guild.bannerURL,
+      bannerURL: function(...args) { guild.bannerURL(...args) },
       createdAt: guild.createdAt,
       createdTimestamp: guild.createdTimestamp,
       description: guild.description,
       joinedAt: guild.joinedAt,
       explicitContentFilter: guild.explicitContentFilter,
-      delete: guild.delete,
-      edit: guild.edit,
-      editWelcomeScreen: guild.editWelcomeScreen,
-      createTemplate: guild.createTemplate,
+      delete: function(...args) { guild.delete(...args) },
+      edit: function(...args) { guild.edit(...args) },
+      editWelcomeScreen: function(...args) { guild.editWelcomeScreen(...args) },
+      createTemplate: function(...args) { guild.createTemplate(...args) },
       invites: guild.invites,
       features: guild.features,
       icon: guild.icon,
-      iconURL: guild.iconURL,
-      setIcon: guild.setIcon,
+      iconURL: function(...args) { guild.iconURL(...args) },
+      setIcon: function(...args) { guild.setIcon(...args) },
       large: guild.large,
       joinedTimestamp: guild.joinedTimestamp,
       premiumProgressBarEnabled: guild.premiumProgressBarEnabled,
@@ -130,19 +148,19 @@ class Securer {
       memberCount: guild.memberCount,
       maximumPresences: guild.maximumPresences,
       mfaLevel: guild.mfaLevel,
-      setMFALevel: guild.setMFALevel,
-      setName: guild.setName,
-      setOwner: guild.setOwner,
+      setMFALevel: function(...args) { guild.setMFALevel(...args) },
+      setName: function(...args) { guild.setName(...args) },
+      setOwner: function(...args) { guild.setOwner(...args) },
       ownerId: guild.ownerId,
       nameAcronym: guild.nameAcronym,
       partnered: guild.partnered,
       preferredLocale: guild.preferredLocale,
-      setPreferredLocale: guild.setPreferredLocale,
-      setRulesChannel: guild.setRulesChannel,
-      setSystemChannel: guild.setSystemChannel,
+      setPreferredLocale: function(...args) { guild.setPreferredLocale(...args) },
+      setRulesChannel: function(...args) { guild.setRulesChannel(...args) },
+      setSystemChannel: function(...args) { guild.setSystemChannel(...args) },
       systemChannelId: guild.systemChannelId,
       rulesChannelId: guild.rulesChannelId,
-      leave: guild.leave,
+      leave: function(...args) { guild.leave(...args) },
       vanityURLCode: guild.vanityURLCode,
       vanityURLUses: guild.vanityURLUses,
       toJSON: guild.toJSON,
@@ -163,6 +181,7 @@ class Securer {
       readyAt: client.readyAt,
       readyTimestamp: client.readyTimestamp,
       uptime: client.uptime,
+      options: JSON.parse(JSON.stringify(client.options)),
       ws: {
         ping: client.ws.ping,
         status: client.ws.status,
@@ -183,11 +202,14 @@ class Securer {
       id: user.id,
       displayAvatarURL: user.displayAvatarURL,
       bot: user.bot,
-      createDM: user.createDM,
+      createDM: function(...args) { user.createDM(...args) },
       createdAt: user.createdAt,
       createdTimestamp: user.createdTimestamp,
-      deleteDM: user.deleteDM,
-      send: user.send,
+      deleteDM: function(...args) { user.deleteDM(...args) },
+      send: async (...args) => {
+        const botMessage = await user.send(...args);
+        return this.secureMessage(botMessage);
+      },
       discriminator: user.discriminator,
       bannerURL: user.bannerURL,
       banner: user.banner,
@@ -205,24 +227,28 @@ class Securer {
       user: member.user ?? this.secureUser(member.user),
       id: member.id,
       bannable: member.bannable,
-      ban: member.ban,
+      ban: function(...args) { member.ban(...args) },
       kickable: member.kickable,
-      kick: member.kick,
+      kick: function(...args) { member.kick(...args) },
       moderatable: member.moderatable,
-      timeout: member.timeout,
+      timeout: function(...args) { member.timeout(...args) },
       joinedAt: member.joinedAt,
       joinedTimestamp: member.joinedTimestamp,
       displayColor: member.displayColor,
-      createDM: member.createDM,
-      deleteDM: member.deleteDM,
-      displayAvatarURL: member.displayAvatarURL,
+      createDM: function(...args) { member.createDM(...args) },
+      deleteDM: function(...args) { member.deleteDM(...args) },
+      displayAvatarURL: member.displayAvatarURL(...args),
       displayHexColor: member.displayHexColor,
       displayName: member.displayName,
       nickname: member.nickname,
       manageable: member.manageable,
       premiumSince: member.premiumSince,
       toJSON: member.toJSON,
-      toString: member.toString
+      toString: member.toString,
+      send: async (...args) => {
+        const botMessage = await member.send(...args);
+        return this.secureMessage(botMessage);
+      }
     }
   }
 

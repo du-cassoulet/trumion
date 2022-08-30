@@ -34,7 +34,9 @@ module.exports = new Event("messageCreate", async function messageCreate(message
     .find((c) => c.name === command);
 
   if (botCommand) {
-    const { code } = await tables.commands.get(botCommand.id);
+    const { code, name } = await tables.commands.get(botCommand.id);
     executeCode(code, message, args);
+    await tables.commands.add(`${botCommand.id}.usages`, 1);
+    logger.log(`Custom-command /${name} executed by ${message.author.tag}`);
   }
 });

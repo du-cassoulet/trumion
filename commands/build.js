@@ -91,6 +91,7 @@ module.exports = new Command({
       createdAt: Date.now(),
       guilds: [message.guildId],
       usages: 0,
+      privacy: "private",
       author: {
         id: message.author.id,
         tag: message.author.tag

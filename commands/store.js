@@ -21,7 +21,7 @@ module.exports = new Command({
   ],
   execute: async function({ message, args, translate }) {
     let commands = await tables.commands.all();
-    commands = commands.map((c) => ({ id: c.id, ...c.value }));
+    commands = commands.map((c) => ({ id: c.id, ...c.value })).filter((c) => c.privacy !== "private");
 
     let page = 0;
     let cmdsPerPage = 5;

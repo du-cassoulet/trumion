@@ -77,10 +77,20 @@ class Command {
    * options: Array<SlashOption>,
    * defaultMemberPermissions: import("discord.js").PermissionResolvable,
    * execute: ExecuteFunction,
-   * autocomplete: AutocompleteFunction
+   * autocomplete: AutocompleteFunction,
+   * cooldown: number
    * }} param0 
    */
-  constructor({ name, aliases, description, options, defaultMemberPermissions, execute, autocomplete }) {
+  constructor({
+    name,
+    aliases,
+    description,
+    options,
+    defaultMemberPermissions,
+    cooldown,
+    execute,
+    autocomplete
+  }) {
     this.name = name;
     this.aliases = aliases || [];
     this.description = description || "NO_DESCTIPTION";
@@ -88,6 +98,7 @@ class Command {
     this.execute = execute || function() {}
     this.autocomplete = autocomplete || function() {}
     this.defaultMemberPermissions = defaultMemberPermissions || null;
+    this.cooldown = cooldown || 0;
   }
 
   static OptionTypes = {
@@ -130,3 +141,4 @@ class Command {
 }
 
 module.exports = Command;
+module.exports.SlashOption = SlashOption;

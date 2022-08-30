@@ -4,13 +4,32 @@ const path = require("path");
 
 class Client extends Discord.Client {
   constructor() {
+    /** @type {Array<Discord.IntentsBitField} */
     const intents = [
       Discord.IntentsBitField.Flags.Guilds,
       Discord.IntentsBitField.Flags.GuildMessages,
       Discord.IntentsBitField.Flags.MessageContent
     ];
 
-    super({ intents });
+    /** @type {import("discord.js").MessageMentionOptions} */
+    const allowedMentions = {
+      repliedUser: false,
+      parse: ["users"]
+    }
+
+    /** @type {Partial<Discord.RESTOptions>} */
+    const rest = {
+      offset: 0
+    }
+
+    const failIfNotExists = false;
+
+    super({
+      intents,
+      allowedMentions,
+      failIfNotExists,
+      rest
+    });
 
     this.prefix = process.env.PREFIX;
 

@@ -1,4 +1,5 @@
 const Babel = require("@babel/standalone");
+const BlacklistedIdentifiers = require("../constants/BlacklistedIdentifiers");
 
 const MAX_SOURCE_ITERATIONS = 100000;
 
@@ -11,7 +12,7 @@ class Code {
   }
 
   #preventInfiniteLoops({ types: t, template }) {
-    const buildGuard = template(`if(ITERATOR++>MAX_ITERATIONS){throw new RangeError('Potential infinite loop: exceeded '+MAX_ITERATIONS +' iterations.');}`);
+    const buildGuard = template(`if(ITERATOR++>MAX_ITERATIONS){throw new RangeError('Potential infinite loop: exceeded '+MAX_ITERATIONS+' iterations.');}`);
 
     return {
       visitor: {
@@ -29,7 +30,7 @@ class Code {
           });
 
           if (!path.get("body").isBlockStatement()) {
-            const statement = path.get("body").node
+            const statement = path.get("body").node;
             path.get("body").replaceWith(t.blockStatement([guard, statement]));
           } else {
             path.get("body").unshiftContainer("body", guard);
@@ -43,25 +44,19 @@ class Code {
     return {
       visitor: {
         "Identifier": (path) => {
-          const BlacklistedIdentifiers = [
-            "global",
-            "globalThis",
-            "process",
-            "console",
-            "setTimeout",
-            "setImmediate",
-            "setInterval",
-            "Event"
-          ]
-
           const Require = "require";
+          // console.log(path.scope);
 
-          if (BlacklistedIdentifiers.includes(path.node.name)) {
-            throw new Error("Unexpected identifier");
-          }
-
-          if (path.node.name === Require) {
-            throw new Error("You can't use this built-in function here, use module() instead.");
+          if (!path.scope.bindings[path.node.name]) {
+            for (const blacklisted of BlacklistedIdentifiers) {
+              if (blacklisted === path.node.name) {
+                throw new Error(`The global identifier '${blacklisted}' was blacklisted.`);
+              }
+            }
+  
+            if (path.node.name === Require) {
+              throw new Error("You can't use 'require' here, use module() instead.");
+            }
           }
         }
       }
@@ -69,14 +64,14 @@ class Code {
   }
 
   parse() {
-    Babel.availablePlugins["preventInfiniteLoops"] = this.#preventInfiniteLoops;
     Babel.availablePlugins["preventGlobalVars"] = this.#preventGlobalVars;
+    Babel.availablePlugins["preventInfiniteLoops"] = this.#preventInfiniteLoops;
 
     const output = Babel.transform(this.code, {
       presets: ["env"],
       plugins: [
-        "preventInfiniteLoops",
-        "preventGlobalVars"
+        "preventGlobalVars",
+        "preventInfiniteLoops"
       ]
     });
 

@@ -14,6 +14,8 @@
   "HELP_STORE_PAGE": "The page that you want to select to discover other commands.",
   "HELP_STORE_SEARCH": "The command you want to search for.",
   "HELP_DELETE_COMMAND_COMMAND_ID": "The id of the command that you want to destroy.",
+  "HELP_DETACH_COMMAND": "Use this command to remove a custom-command from your server.",
+  "HELP_DETACH_COMMAND_COMMAND_ID": "The command that you want to remove from your server.",
   "HELP": "Help",
   "INVALID_COMMAND": "The command %1 doesn't exist.",
   "HELP_FOR": "Help for the command %1",
@@ -40,5 +42,9 @@
   "COMMAND_ALREADY_ADDED": "You already have a command named %1 in this server.",
   "NOT_COMMAND_ID": "You have to input a command ID. Exemple: %1.",
   "INVALID_COMMAND_ID": "There is no command with this ID.",
-  "COMMAND_DELETED": "Successfully deleted the command %1."
+  "COMMAND_DELETED": "Successfully deleted the command %1.",
+  "COMMAND_ALREADY_IN_GUILD": "The command %1 is already in this server.",
+  "ADDED_COMMAND": "Successfully added the command %1 in this server.",
+  "COMMAND_NOT_IN_GUILD": "The command %1 is not in this server.",
+  "COMMAND_DETACHED": "The command %1 was successfully detached."
 }

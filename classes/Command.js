@@ -75,17 +75,19 @@ class Command {
    * aliases: Array<string>,
    * description: keyof import("../langs/en.json"),
    * options: Array<SlashOption>,
+   * defaultMemberPermissions: import("discord.js").PermissionResolvable,
    * execute: ExecuteFunction,
    * autocomplete: AutocompleteFunction
    * }} param0 
    */
-  constructor({ name, aliases, description, options, execute, autocomplete }) {
+  constructor({ name, aliases, description, options, defaultMemberPermissions, execute, autocomplete }) {
     this.name = name;
     this.aliases = aliases || [];
     this.description = description || "NO_DESCTIPTION";
     this.options = options || [];
     this.execute = execute || function() {}
     this.autocomplete = autocomplete || function() {}
+    this.defaultMemberPermissions = defaultMemberPermissions || null;
   }
 
   static OptionTypes = {
@@ -115,6 +117,15 @@ class Command {
     GUILD_STAGE_VOICE: 13,
     GUILD_DIRECTORY: 14,
     GUILD_FORUM: 15
+  }
+
+  static serializeBigInt(val) {
+    return JSON.parse(JSON.stringify(val, (key, value) =>
+      typeof value === "bigint"
+        ? value.toString()
+        : value
+      )
+    );
   }
 }
 

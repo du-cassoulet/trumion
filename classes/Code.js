@@ -50,7 +50,8 @@ class Code {
             "console",
             "setTimeout",
             "setImmediate",
-            "setInterval"
+            "setInterval",
+            "Event"
           ]
 
           const Require = "require";

@@ -225,6 +225,42 @@ class Securer {
       toString: member.toString
     }
   }
+
+  /**
+   * @param {any} val 
+   * @param {string} name 
+   */
+  secureModule(val, name) {
+    if (val.on) delete val.on;
+    if (val.once) delete val.once;
+
+    switch (name) {
+      case "discord.js":
+        val = this.secureDiscordJs(val);
+        break;
+    }
+
+    return val;
+  }
+
+  /**
+   * @param {import("discord.js")} Discord 
+   */
+  secureDiscordJs(Discord) {
+    return {
+      EmbedBuilder: Discord.EmbedBuilder,
+      ModalBuilder: Discord.ModalBuilder,
+      ButtonBuilder: Discord.ButtonBuilder,
+      ActionRowBuilder: Discord.ActionRowBuilder,
+      SelectMenuBuilder: Discord.SelectMenuBuilder,
+      TextInputBuilder: Discord.TextInputBuilder,
+      Collection: Discord.Collection,
+      ButtonStyle: Discord.ButtonStyle,
+      TextInputStyle: Discord.TextInputStyle,
+      Events: Discord.Events,
+      PermissionFlagsBits: structuredClone(Discord.PermissionFlagsBits)
+    }
+  }
 }
 
 module.exports = Securer;

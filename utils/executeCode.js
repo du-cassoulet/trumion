@@ -20,14 +20,13 @@ function executeCode(code, message, args) {
    * @returns {any}
    */
   function module(dep) {
-    const BlacklistedModules = [
-      "fs",
-      "os",
-      "quick.db"
+    const WhitelistedModules = [
+      "axios",
+      "discord.js"
     ];
 
     if (dep.startsWith(".") || dep.startsWith("/")) throw new Error("You can't import local files.");
-    if (BlacklistedModules.includes(dep)) throw new Error("This module was blacklisted.");
+    if (!WhitelistedModules.includes(dep)) throw new Error("This module was blacklisted.");
 
     return require(dep);
   }

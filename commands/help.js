@@ -37,7 +37,7 @@ module.exports = new Command({
       .setTitle(translate("HELP"))
       .setDescription(client.commands.toJSON().map((c) => `> **/${c.name}**\n${translate(c.description)}`).join("\n\n"))
       .setColor(client.embedColor)
-      .setFields({ name: "Custom commands", value: Object.values(customCommands).map((c) => c.name).join(", ") })
+      .setFields({ name: "Custom commands", value: Object.keys(customCommands).length === 0 ? "No custom command": Object.values(customCommands || {}).map((c) => c.name).join(", ") })
 
       message.reply({
         embeds: [embed]

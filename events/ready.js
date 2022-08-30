@@ -32,6 +32,7 @@ module.exports = new Event("ready", async function ready() {
         name: command.name,
         description: description.length > 100 ? description.slice(0, 97) + "...": description,
         options: translateOptions(command.options),
+        default_member_permissions: command.defaultMemberPermissions,
         type: 1
       }
     })

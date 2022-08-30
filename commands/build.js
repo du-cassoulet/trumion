@@ -3,9 +3,10 @@ const Command = require("../classes/Command");
 const { default: axios } = require("axios");
 
 module.exports = new Command({
-  name: "build-command",
+  name: "build",
   aliases: ["bc"],
   description: "HELP_BUILD_COMMAND",
+  defaultMemberPermissions: Command.serializeBigInt(Discord.PermissionFlagsBits.Administrator),
   options: [
     {
       name: "command-name",

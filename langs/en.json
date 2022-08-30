@@ -73,5 +73,8 @@
   "COMMAND_PRIVACY": "Command pricvacy",
   "CREATED_THE": "The created the %1",
   "USED": "Used %1 times",
-  "ON_GUILDS": "On %1 servers"
+  "ON_GUILDS": "On %1 servers",
+  "GET_CODE": "Get command's code",
+  "CODE_NOT_ALLOWED": "You are not allowed to read this command's code.",
+  "COMMAND_PRIVATE": "This command is private."
 }

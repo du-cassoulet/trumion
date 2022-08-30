@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const Event = require("../classes/Event.js");
+const fs = require("fs");
 
 module.exports = new Event("interactionCreate", async function interactionCreate(interaction) {
   const lang = await tables.guilds.get(`${interaction.guildId}.lang`) || "en";
@@ -101,5 +102,25 @@ module.exports = new Event("interactionCreate", async function interactionCreate
       interaction: interaction,
       translate: translate
     });
+  } else if (interaction.isButton()) {
+    /** @type {import("discord.js").ButtonInteraction} */
+    const button = interaction;
+
+    if (button.customId.startsWith("code")) {
+      const commandId = button.customId.split(":")[1];
+      const command = await tables.commands.get(commandId);
+
+      if (command.privacy !== "use-and-read" && button.user.id !== command.author.id) return button.reply({
+        content: translate("CODE_NOT_ALLOWED"),
+        ephemeral: true
+      });
+
+      fs.writeFileSync(`./code:${commandId}.js`, command.code, "utf-8");
+      await button.reply({
+        files: [new Discord.AttachmentBuilder(`./code:${commandId}.js`, `code:${commandId}.js`)],
+        ephemeral: true
+      });
+      fs.unlinkSync(`./code:${commandId}.js`);
+    }
   }
 });

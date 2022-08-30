@@ -17,7 +17,11 @@ module.exports = new Command({
   autocomplete: async function({ interaction, translate }) {
     const focusedValue = interaction.options.getFocused();
     let commands = await tables.commands.all();
-    commands = commands.map((c) => ({ id: c.id, ...c.value }));
+
+    commands = commands.map((c) => ({ id: c.id, ...c.value })).filter((c) => {
+      if (c.privacy === "private" && c.author.id !== interaction.user.id) return false;
+      return true;
+    });
 
     const filtered = commands.filter((c) =>
       utils.clearify(c.name).startsWith(utils.clearify(focusedValue)) ||
@@ -49,15 +53,27 @@ module.exports = new Command({
       ephemeral: true
     });
 
+    if (command.author.id !== message.author.id) return message.reply({
+      content: translate("COMMAND_PRIVATE"),
+      ephemeral: true
+    });
+
     const embed = new Discord.EmbedBuilder()
       .setColor(client.embedColor)
       .setTitle(translate("THE_COMMAND", "/" + command.name))
       .setDescription(`**${translate("COMMAND_NAME")}**: ${command.name}\n**${translate("COMMAND_PRIVACY")}**: ${command.privacy}\n**${translate("CREATED_THE", `**<t:${Math.round(command.createdAt / 1000)}>`)}\n\n**${translate("COMMAND_DESCRIPTION")}**\n ${command.description}`)
       .setAuthor({ name: `${client.users.cache.get(command.author.id)?.tag || command.author.tag}` })
       .setFooter({ text: translate("USED", command.usages.toLocaleString()) + " • " + translate("ON_GUILDS", command.guilds.length.toLocaleString()) })
-    
-    message.reply({
-      embeds: [embed]
+
+    await message.reply({
+      embeds: [embed],
+      components: [new Discord.ActionRowBuilder().setComponents(
+        new Discord.ButtonBuilder()
+        .setCustomId(`code:${commandId}`)
+        .setStyle(Discord.ButtonStyle.Secondary)
+        .setLabel(translate("GET_CODE"))
+      )]
     });
+
   }
 });

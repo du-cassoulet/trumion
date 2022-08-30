@@ -274,6 +274,7 @@ class Securer {
    */
   secureDiscordJs(Discord) {
     return {
+      AttachmentBuilder: Discord.AttachmentBuilder,
       EmbedBuilder: Discord.EmbedBuilder,
       ModalBuilder: Discord.ModalBuilder,
       ButtonBuilder: Discord.ButtonBuilder,

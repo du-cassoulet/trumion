@@ -73,5 +73,8 @@
   "COMMAND_CODE_EDITED": "Le code de la commande %1 a été modifié avec succès.",
   "INVALID_PRIVACY_TYPE": "Type de confidentialité non valide. Exemples %1.",
   "HELP_GET": "Utilisez cette commande si vous avez besoin d'informations sur une commande spécifique. Si vous êtes le propriétaire de la commande, vous serez en mesure de voir la commande wole, si vous ne l'êtes pas, cela dépend des paramètres de confidentialité de la commande.",
-  "BOT_MAIN_INFO": "Utilisez %1 pour créer le robot le plus personnalisable au monde.\n\nToutes les commandes disponibles dans %2 ont été créées par la communauté en utilisant le langage de programmation %3 avec le compilateur %4.\nTous les modules ont été sécurisés autant que possible avec l'analyseur syntaxique %5.\n\n%6 est actuellement en version %7.\nRejoignez le serveur de support si vous trouvez un bogue, une faille ou si vous avez des suggestions.\n\nMerci d'avoir choisi %8 !"
+  "BOT_MAIN_INFO": "Utilisez %1 pour créer le robot le plus personnalisable au monde.\n\nToutes les commandes disponibles dans %2 ont été créées par la communauté en utilisant le langage de programmation %3 avec le compilateur %4.\nTous les modules ont été sécurisés autant que possible avec l'analyseur syntaxique %5.\n\n%6 est actuellement en version %7.\nRejoignez le serveur de support si vous trouvez un bogue, une faille ou si vous avez des suggestions.\n\nMerci d'avoir choisi %8 !",
+  "COMMAND_PRIVATE": "Cette commande est privée.",
+  "GET_CODE": "Obtenir le code de la commande",
+  "CODE_NOT_ALLOWED": "Vous n'êtes pas autorisé à lire le code de cette commande."
 }

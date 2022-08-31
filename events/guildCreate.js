@@ -1,13 +1,11 @@
-const Event = require("../classes/Event.js");
+const Event = require("../classes/Event");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const LangCode = require("../constants/LangCodes");
 
 const langs = Object.entries(LangCode).map((l) => ({ discord: l[0], code: l[1] }));
 
-module.exports = new Event("ready", async function ready() {
-  logger.success(`Successfully logged as ${client.user.tag}`);
-  
+module.exports = new Event("guildCreate", async function guildCreate(guild) {
   const commands = client.commands.toJSON();
   const rest = new REST({ version: process.env.DISCORD_API_VERSION }).setToken(client.token);
 
@@ -52,7 +50,7 @@ module.exports = new Event("ready", async function ready() {
     return opt;
   }
 
-  await rest.put(Routes.applicationCommands(client.user.id), {
+  await rest.put(Routes.applicationGuildCommands(client.user.id, guild.id), {
     body: commands.map(mapCommands)
   });
 });

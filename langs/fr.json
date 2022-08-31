@@ -76,5 +76,18 @@
   "BOT_MAIN_INFO": "Utilisez %1 pour créer le robot le plus personnalisable au monde.\n\nToutes les commandes disponibles dans %2 ont été créées par la communauté en utilisant le langage de programmation %3 avec le compilateur %4.\nTous les modules ont été sécurisés autant que possible avec l'analyseur syntaxique %5.\n\n%6 est actuellement en version %7.\nRejoignez le serveur de support si vous trouvez un bogue, une faille ou si vous avez des suggestions.\n\nMerci d'avoir choisi %8 !",
   "COMMAND_PRIVATE": "Cette commande est privée.",
   "GET_CODE": "Obtenir le code de la commande",
-  "CODE_NOT_ALLOWED": "Vous n'êtes pas autorisé à lire le code de cette commande."
+  "CODE_NOT_ALLOWED": "Vous n'êtes pas autorisé à lire le code de cette commande.",
+  "INPUT_KEY": "Vous devez entrer une clé variable pour exécuter cette commande.",
+  "HELP_LOCALES_SET": "Utilisez cette commande pour importer une variable locale.",
+  "LOCALE_DOESNT_EXIST": "La variable locale %1 n'existe pas.",
+  "KEY_VALUE_NO_SPACE": "Les entrées clé et valeur ne peuvent pas contenir d'espaces vides.",
+  "HELP_LOCALES_VALUE": "La valeur de la variable locale.",
+  "HELP_LOCALES_KEY": "La clé de la variable locale.",
+  "HELP_LOCALES_DELETE": "Utilisez cette commande pour supprimer une variable locale.",
+  "LOCALE_DELETED": "La variable locale %1 a été supprimée avec succès.",
+  "INPUT_VALUE": "Vous devez saisir une valeur variable pour exécuter cette commande.",
+  "TELL_ACTION_TO_DO": "Vous devez me donner une action à faire.",
+  "LOCALE_CREATED": "La variable locale %1 a été créée avec succès.",
+  "INVALID_ACTION": "Vous m'avez indiqué une action non valide à faire. Actions valides : %1.",
+  "HELP_LOCALES_COMMAND": "Utilisez cette commande si vous voulez importer des variables locales dans tous les programmes que vous avez créés. Vous pouvez également utiliser cette commande pour supprimer les locales. Les locales sont des variables privées qui peuvent être utilisées dans toutes les commandes que vous possédez avec l'identifiant 'locales'. Exemple : 'locales.API_KEY'."
 }

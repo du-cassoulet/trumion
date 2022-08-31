@@ -7,7 +7,8 @@ const BlacklistedIdentifiers = [
   "setImmediate",
   "setInterval",
   "Event",
-  "Code"
+  "Code",
+  "eval"
 ];
 
 module.exports = BlacklistedIdentifiers;

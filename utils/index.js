@@ -1,9 +1,11 @@
-const clearify = require("./clearify.js");
-const capitalize = require("./capitalize.js");
-const executeCode = require("./executeCode.js");
+const clearify = require("./clearify");
+const capitalize = require("./capitalize");
+const executeCode = require("./executeCode");
+const displayError = require("./displayError");
 
 module.exports = {
   clearify,
   capitalize,
-  executeCode
+  executeCode,
+  displayError
 }

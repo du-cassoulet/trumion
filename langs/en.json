@@ -27,6 +27,11 @@
   "HELP_EDIT_PRIVACY": "If you want to edit the privacy of a command.",
   "HELP_GET": "Use this command if you need information about a specific command. If you are the owner of the command you will be able to see the wole command, if you are not it depends of the privacy settings of the command.",
   "HELP_GET_COMMAND": "The command that you want to get.",
+  "HELP_LOCALES_COMMAND": "Use this command if you want to import locales variables to every programs that you made. You can also use this command to remove locales. Locales are private variables that can be used in every commands that you own with the identifier 'locales'. Exemple 'locales.API_KEY'",
+  "HELP_LOCALES_SET": "Use this command to import a local variable.",
+  "HELP_LOCALES_DELETE": "Use this command to delete a local variable.",
+  "HELP_LOCALES_KEY": "The key of the local variable.",
+  "HELP_LOCALES_VALUE": "The value of the local variable.",
   "HELP": "Help",
   "INVALID_COMMAND": "The command %1 doesn't exist.",
   "HELP_FOR": "Help for the command %1",
@@ -76,5 +81,13 @@
   "ON_GUILDS": "On %1 servers",
   "GET_CODE": "Get command's code",
   "CODE_NOT_ALLOWED": "You are not allowed to read this command's code.",
-  "COMMAND_PRIVATE": "This command is private."
+  "COMMAND_PRIVATE": "This command is private.",
+  "TELL_ACTION_TO_DO": "You have to give me an action to do.",
+  "INVALID_ACTION": "You told me an invalid action to do. Valid actions: %1.",
+  "INPUT_KEY": "You have to input a variable key to perform this command.",
+  "INPUT_VALUE": "You have to input a variable value to perform this command.",
+  "KEY_VALUE_NO_SPACE": "The key and value inputs cannot contains empty spaces.",
+  "LOCALE_CREATED": "Successfully created the local variable %1.",
+  "LOCALE_DELETED": "The local variable %1 was successfully deleted.",
+  "LOCALE_DOESNT_EXIST": "The local variable %1 doesn't exist."
 }

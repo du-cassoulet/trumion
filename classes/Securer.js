@@ -22,7 +22,7 @@ class Securer {
           }
         }
 
-        options.reply.messageReference = message;
+        options.reply = { failIfNotExists: false, messageReference: message }
         const botMessage = await message.channel.send(options);
         return this.secureMessage(botMessage);
       },

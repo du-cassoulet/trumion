@@ -1,5 +1,5 @@
-let Code = require("../classes/Code");
-let Securer = require("../classes/Securer");
+const Code = require("../classes/Code");
+const Securer = require("../classes/Securer");
 const AllowedModules = require("../constants/AllowedModules");
 
 /**
@@ -7,7 +7,7 @@ const AllowedModules = require("../constants/AllowedModules");
  * @param {import("discord.js").Message} message 
  * @param {Array<string>} args 
  */
-function executeCode(code, message, args) {
+async function executeCode(code, message, args, commandAuthorId) {
   let fileDeps = {
     securer: new Securer(),
     tableName: [...message.guildId]
@@ -16,10 +16,9 @@ function executeCode(code, message, args) {
   }
   let client = fileDeps.securer.secureClient(globalThis.client);
   let database = globalThis.database.table(fileDeps.tableName);
-  let logger, tables, utils, translator;
+  let locales = await globalThis.tables.users.get(`${commandAuthorId}.locales`) || {};
 
   message = fileDeps.securer.secureMessage(message);
-  fileDeps = undefined;
 
   /**
    * @param {string} dep 
@@ -37,7 +36,6 @@ function executeCode(code, message, args) {
   try {
     eval(new Code(code).parse());
   } catch (error) {
-    console.log(error);
     message.channel.send({
       content: `\`\`\`diff\n- ${error}\`\`\``
     });

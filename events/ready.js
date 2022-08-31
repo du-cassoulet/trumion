@@ -1,6 +1,9 @@
 const Event = require("../classes/Event.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+const LangCode = require("../constants/LangCodes");
+
+const langs = Object.entries(LangCode).map((l) => ({ discord: l[0], code: l[1] }));
 
 module.exports = new Event("ready", async function ready() {
   logger.success(`Successfully logged as ${client.user.tag}`);
@@ -24,17 +27,32 @@ module.exports = new Event("ready", async function ready() {
     });
   }
 
-  await rest.put(Routes.applicationGuildCommands(client.user.id, "929990936103092274"), {
-    body: commands.map((command) => {
-      const description = translator.format("en", command.description);
+  /**
+   * @param {import("../classes/Command")} command 
+   * @returns {import("discord.js").ChatInputApplicationCommandData}
+   */
+  function mapCommands(command) {
+    const description = translator.format("en", command.description);
 
-      return {
-        name: command.name,
-        description: description.length > 100 ? description.slice(0, 97) + "...": description,
-        options: translateOptions(command.options),
-        default_member_permissions: command.defaultMemberPermissions,
-        type: 1
-      }
-    })
+    /** @type {import("discord.js").ChatInputApplicationCommandData} */
+    const opt = {
+      name: command.name,
+      description: description.length > 100 ? description.slice(0, 97) + "...": description,
+      descriptionLocalizations: {},
+      options: translateOptions(command.options),
+      default_member_permissions: command.defaultMemberPermissions,
+      type: 1
+    }
+
+    for (const lang of langs) {
+      const description = translator.format(lang.code, command.description);;
+      opt.descriptionLocalizations[lang.discord] = description.length > 100 ? description.slice(0, 97) + "...": description;
+    }
+
+    return opt;
+  }
+
+  await rest.put(Routes.applicationGuildCommands(client.user.id, "1014537202304303214"), {
+    body: commands.map(mapCommands)
   });
 });

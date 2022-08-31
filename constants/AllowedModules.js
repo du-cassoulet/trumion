@@ -1,7 +1,8 @@
 const AllowedModules = [
   "axios",
   "discord.js",
-  "@discordjs/builders"
+  "@discordjs/builders",
+  "canvas"
 ];
 
 module.exports = AllowedModules;

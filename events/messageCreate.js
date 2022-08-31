@@ -1,10 +1,23 @@
 const Event = require("../classes/Event.js");
 const { executeCode } = require("../utils");
+const LangCodes = require("../constants/LangCodes");
+
+const langs = Object.values(LangCodes);
 
 module.exports = new Event("messageCreate", async function messageCreate(message) {
-  if (message.author.bot || !message.guildId || !message.content.startsWith(client.prefix)) return;
+  if (message.author.bot || !message.guildId) return;
 
-  message.guild.lang = await tables.guilds.get(`${message.guildId}.lang`) || "en";
+  const guildTable = database.table(
+    [...message.guildId]
+    .map((n) => ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"][Number(n)])
+    .join("")
+  );
+
+  message.guild.lang = await guildTable.get("language") || process.env.LANGUAGE;
+  message.guild.prefix = await guildTable.get("prefix") || client.prefix;
+  if (!langs.includes(message.guild.lang)) message.guild.lang = process.env.LANGUAGE;
+
+  if (!message.content.startsWith(message.guild.prefix)) return;
 
   /**
    * @param {keyof import("../langs/en.json")} opt 
@@ -22,7 +35,7 @@ module.exports = new Event("messageCreate", async function messageCreate(message
     logger.log(`Command /${command.name} executed by ${message.author.tag}`);
   }
 
-  const args = message.content.slice(client.prefix.length).trim().split(/ +/);
+  const args = message.content.slice(message.guild.prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
   if (client.commands.has(command)) executeCommand(client.commands.get(command));

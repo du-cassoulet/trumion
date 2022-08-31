@@ -96,8 +96,6 @@ class Code {
       ]
     });
 
-    console.log(output.code);
-
     return output.code;
   }
 }

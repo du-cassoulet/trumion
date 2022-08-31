@@ -33,7 +33,10 @@ class Securer {
       id: message.id,
       content: message.content,
       cleanContent: message.cleanContent,
-      edit: message.edit,
+      edit: async (options) => { 
+        const botMessage = await message.edit(options);
+        return this.secureMessage(botMessage);
+      },
       components: message.components,
       embeds: message.embeds,
       attachments: message.attachments,
@@ -52,7 +55,99 @@ class Securer {
       unpin: function(...args) { message.unpin(...args) },
       tts: message.tts,
       type: message.type,
-      slash: message.slash
+      slash: message.slash,
+      createReactionCollector: (options = {}) => {
+        if (!options.time || options.time > 3e+5) options.time = 3e+5;
+        return this.secureReactionCollector(message.createReactionCollector(options));
+      },
+      react: async (...args) => {
+        const botReaction = await message.react(...args);
+        return this.secureReaction(botReaction);
+      },
+      reactions: {
+        removeAll: async () => {
+          const botMessage = await message.reactions.removeAll();
+          return botMessage;
+        },
+        client: message.reactions.client ?? this.secureClient(message.reactions.client),
+        message: message.reactions.message ?? this.secureMessage(message.reactions.message),
+        resolve: (...args) => {
+          return this.secureReaction(message.reactions.resolve(...args));
+        },
+        resolveId: message.reactions.resolveId
+      }
+    }
+  }
+
+  /**
+   * @param {import("discord.js").ReactionCollector} collector 
+   */
+  secureReactionCollector(collector) {
+    return {
+      on: (event, listener) => {
+        return collector.on(event, (reaction, user, reason) => listener(
+          this.secureReaction(reaction),
+          this.secureUser(user),
+          reason
+        ));
+      },
+      once: (event, listener) => {
+        return collector.once(event, (reaction, user, reason) => listener(
+          this.secureReaction(reaction),
+          this.secureUser(user),
+          reason
+        ));
+      },
+      client: collector.client ?? this.secureClient(collector.client),
+      ended: collector.message ?? this.secureMessage(collector.message),
+      empty: collector.empty,
+      collect: collector.collect,
+      dispose: collector.dispose,
+      stop: collector.stop,
+      total: collector.total,
+      endReason: collector.endReason,
+      ended: collector.ended
+    }
+  }
+
+  /**
+   * @param {import("discord.js").MessageReaction} reaction 
+   */
+  secureReaction(reaction) {
+    return {
+      emoji: reaction.emoji ?? this.secureEmoji(reaction.emoji),
+      client: reaction.emoji ?? this.secureClient(reaction.client),
+      message: reaction.message ?? this.secureMember(reaction.message),
+      count: reaction.count,
+      me: reaction.me,
+      react: async () => {
+        const botReaction = await reaction.react();
+        return this.secureReaction(botReaction);
+      },
+      remove: async () => {
+        const botReaction = await reaction.remove();
+        return this.secureReaction(botReaction);
+      },
+      toJSON: reaction.toJSON,
+      toString: reaction.toString
+    }
+  }
+
+  /**
+   * @param {import("discord.js").Emoji} emoji 
+   */
+  secureEmoji(emoji) {
+    return {
+      client: emoji.client ?? this.secureClient(emoji.client),
+      name: emoji.name,
+      animated: emoji.animated,
+      createdAt: emoji.createdAt,
+      createdTimestamp: emoji.createdTimestamp,
+      id: emoji.id,
+      identifier: emoji.identifier,
+      url: emoji.url,
+      toJSON: emoji.toJSON,
+      toString: emoji.toString
     }
   }
   
@@ -62,6 +157,7 @@ class Securer {
   secureChannel(channel) {
     return {
       guild: channel.guild ?? this.secureGuild(channel.guild),
+      client: channel.client ?? this.secureClient(channel.client),
       send: async (...args) => {
         const botMessage = await channel.send(...args);
         this.secureMessage(botMessage);
@@ -118,6 +214,7 @@ class Securer {
       afkChannel: guild.afkChannel ?? this.secureChannel(guild.afkChannel),
       systemChannel: guild.systemChannel ?? this.secureChannel(guild.systemChannel),
       rulesChannel: guild.rulesChannel ?? this.secureChannel(guild.rulesChannel),
+      client: guild.client ?? this.secureClient(guild.client),
       name: guild.name,
       id: guild.id,
       afkTimeout: guild.afkTimeout,
@@ -181,7 +278,6 @@ class Securer {
       readyAt: client.readyAt,
       readyTimestamp: client.readyTimestamp,
       uptime: client.uptime,
-      options: JSON.parse(JSON.stringify(client.options)),
       ws: {
         ping: client.ws.ping,
         status: client.ws.status,
@@ -197,6 +293,7 @@ class Securer {
    */
   secureUser(user) {
     return {
+      client: user.client ?? this.secureClient(user.client),
       username: user.username,
       tag: user.tag,
       id: user.id,
@@ -225,6 +322,7 @@ class Securer {
   secureMember(member) {
     return {
       user: member.user ?? this.secureUser(member.user),
+      client: member.client ?? this.secureClient(member.client),
       id: member.id,
       bannable: member.bannable,
       ban: function(...args) { member.ban(...args) },

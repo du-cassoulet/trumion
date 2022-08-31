@@ -8,7 +8,8 @@ class Client extends Discord.Client {
     const intents = [
       Discord.IntentsBitField.Flags.Guilds,
       Discord.IntentsBitField.Flags.GuildMessages,
-      Discord.IntentsBitField.Flags.MessageContent
+      Discord.IntentsBitField.Flags.MessageContent,
+      Discord.IntentsBitField.Flags.GuildMessageReactions
     ];
 
     /** @type {import("discord.js").MessageMentionOptions} */

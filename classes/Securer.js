@@ -383,7 +383,7 @@ class Securer {
       ButtonStyle: Discord.ButtonStyle,
       TextInputStyle: Discord.TextInputStyle,
       Events: Discord.Events,
-      PermissionFlagsBits: structuredClone(Discord.PermissionFlagsBits)
+      PermissionFlagsBits: { ...Discord.PermissionFlagsBits }
     }
   }
 }

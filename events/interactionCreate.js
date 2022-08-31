@@ -115,12 +115,12 @@ module.exports = new Event("interactionCreate", async function interactionCreate
         ephemeral: true
       });
 
-      fs.writeFileSync(`./code:${commandId}.js`, command.code, "utf-8");
+      fs.writeFileSync(`./code/code_${commandId}.js`, command.code, "utf-8");
       await button.reply({
-        files: [new Discord.AttachmentBuilder(`./code:${commandId}.js`, `code:${commandId}.js`)],
+        files: [new Discord.AttachmentBuilder(`./code/code_${commandId}.js`, `code_${commandId}.js`)],
         ephemeral: true
       });
-      fs.unlinkSync(`./code:${commandId}.js`);
+      fs.rmSync(`./code/code_${commandId}.js`);
     }
   }
 });

@@ -149,10 +149,18 @@ module.exports = new Command({
           break;
       }
 
-      interaction.deferUpdate(interaction.message.edit({
-        embeds: [await embed(page, cmdsPerPage, maxPage)],
-        components: [components(page, maxPage)]
-      })).catch(() => {});
+      const ids = [
+        `remove-page:${message.id}`,
+        `add-page:${message.id}`,
+        `go-to-page:${message.id}`
+      ];
+
+      if (ids.includes(interaction.customId)) {
+        interaction.deferUpdate(interaction.message.edit({
+          embeds: [await embed(page, cmdsPerPage, maxPage)],
+          components: [components(page, maxPage)]
+        })).catch(() => {});
+      }
     });
 
     collector.on("end", async () => {

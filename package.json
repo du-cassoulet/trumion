@@ -6,7 +6,7 @@
   "readme": "README.md",
   "scripts": {
     "start": "node ./index.js",
-    "dev": "nodemon ./index.js",
+    "dev": "nodemon ./index.js --ignore ./code/*",
     "translate": "node ./translate.js 1fc7b039-f8f2-018c-e982-3a7c492f0d77:fx"
   },
   "keywords": [

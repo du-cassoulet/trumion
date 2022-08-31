@@ -1,7 +1,10 @@
 node_modules/
+code/
+test/
 
 database.sqlite
 package-lock.json
 yarn.lock
 translate.js
+code
 .env

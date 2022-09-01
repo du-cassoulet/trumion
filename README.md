@@ -83,7 +83,7 @@ console.log(data);
     }
   }
 ]
-/*
+*/
 ```
 
 ### **GET** /commands/:commandId

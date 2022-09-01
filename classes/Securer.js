@@ -13,6 +13,7 @@ class Securer {
       member: message.member ?? this.secureMember(message.member),
       guild: message.guild ?? this.secureGuild(message.guild),
       client: message.client ?? this.secureClient(message.client),
+      mentions: message.mentions ?? this.secureMentions(message.mentions),
       /**
        * @param {import("discord.js").MessageOptions} options 
        */
@@ -80,6 +81,27 @@ class Securer {
       }
     }
   }
+
+  /**
+   * @param {import("discord.js").Attachment} attachment 
+   */
+  secureAttachment(attachment) {
+    return {
+      id: attachment.id,
+      name: attachment.name,
+      contentType: attachment.contentType,
+      description: attachment.description,
+      ephemeral: attachment.ephemeral,
+      height: attachment.height,
+      width: attachment.width,
+      proxyURL: attachment.proxyURL,
+      size: attachment.size,
+      spoiler: attachment.spoiler,
+      url: attachment.url,
+      toJSON: attachment.toJSON,
+      toString: attachment.toString
+    }
+  }
   
   /**
    * @param {import("discord.js").Role} role 
@@ -87,6 +109,7 @@ class Securer {
   secureRole(role) {
     return {
       guild: role.guild ?? this.secureGuild(role.guild),
+      members: role.members ?? this.secureCollection(role.members),
       id: role.id,
       color: role.color,
       createdAt: role.createdAt,
@@ -121,40 +144,46 @@ class Securer {
   /**
    * @param {import("discord.js").MessageMentions} mentions 
    */
-  secureMessageMentions(mentions) {
-    const collections = {
-      channels: new Discord.Collection(),
-      members: new Discord.Collection(),
-      users: new Discord.Collection(),
-      roles: new Discord.Collection()
-    }
-
-    mentions.channels.forEach((channel) => {
-      collections.channels.set(channel.id, this.secureChannel(channel));
-    });
-
-    mentions.members.forEach((member) => {
-      collections.members.set(member.id, this.secureMember(member));
-    });
-
-    mentions.users.forEach((user) => {
-      collections.users.set(user.id, this.secureUser(user));
-    });
-
-    mentions.roles.forEach((role) => {
-      collections.roles.set(role.id, this.secureRole(role));
-    });
-
+  secureMentions(mentions) {
     return {
       repliedUser: mentions.repliedUser ?? this.secureUser(mentions.repliedUser),
-      channels: collections.channels,
-      members: collections.members,
-      users: collections.users,
-      roles: mentions.roles,
+      channels: secureCollection(mentions.channels),
+      members: secureCollection(mentions.members),
+      users: secureCollection(mentions.users),
+      roles: secureCollection(mentions.roles),
       everyone: mentions.everyone,
       toJSON: mentions.toJSON,
       toString: mentions.toString,
     }
+  }
+
+  /**
+   * @param {import("discord.js").Collection<string, import("discord.js").GuildChannel | import("discord.js").GuildMember | import("discord.js").User | import("discord.js").Role | import("discord.js").Emoji | import("discord.js").Guild> | import("discord.js").Attachment>} collection 
+   */
+  secureCollection(collection) {
+    const newCollection = new Discord.Collection();
+
+    collection.forEach((element) => {
+      if (element instanceof Discord.GuildChannel) {
+        newCollection.set(element.id, this.secureChannel(element));
+      } else if (element instanceof Discord.GuildMember) {
+        newCollection.set(element.id, this.secureMember(element));
+      } else if (element instanceof Discord.User) {
+        newCollection.set(element.id, this.secureUser(element));
+      } else if (element instanceof Discord.Role) {
+        newCollection.set(element.id, this.secureRole(element));
+      } else if (element instanceof Discord.Emoji) {
+        newCollection.set(element.id, this.secureEmoji(element));
+      } else if (element instanceof Discord.Guild) {
+        newCollection.set(element.id, this.secureGuild(element));
+      } else if (element instanceof Discord.Attachment) {
+        newCollection.set(element.id, this.secureAttachment(element));
+      } else {
+        throw new Error("Invalid element to secure");
+      }
+    });
+
+    return newCollection;
   }
 
   /**

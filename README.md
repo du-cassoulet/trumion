@@ -1,1 +1,2 @@
-# Custom bot
+# Trumion
+## Discord bot

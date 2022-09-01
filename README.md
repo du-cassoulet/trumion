@@ -1,3 +1,4 @@
+
 # Trumion
 
 Trumion is the most customizable discord bot in the world. Use real JavaScript code to customize your bot the most efficient way possible.
@@ -118,8 +119,4 @@ console.log(data);
   }
 }
 */
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 0732c008a4eee1163d855fbd4d2ceebc42b5d33d

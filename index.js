@@ -1,4 +1,6 @@
 require("dotenv").config();
+require("./api/app");
+
 const { QuickDB } = require("quick.db");
 const Client = require("./classes/Client.js");
 const Logger = require("./classes/Logger.js");

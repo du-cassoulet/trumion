@@ -45,7 +45,9 @@ module.exports = new Event("ready", async function ready() {
     }
 
     for (const lang of langs) {
-      const description = translator.format(lang.code, command.description);;
+      const description = translator.format(lang.code, command.description);
+      if (!description) continue;
+      
       opt.descriptionLocalizations[lang.discord] = description.length > 100 ? description.slice(0, 97) + "...": description;
     }
 

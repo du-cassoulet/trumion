@@ -89,5 +89,7 @@
   "CODE_NOT_ALLOWED": "Sie dürfen den Code dieses Befehls nicht lesen.",
   "TELL_ACTION_TO_DO": "Sie müssen mir eine Aktion vorgeben, die ich durchführen soll.",
   "LOCALE_DELETED": "Die lokale Variable %1 wurde erfolgreich gelöscht.",
-  "BOT_MAIN_INFO": "Verwenden Sie %1, um den am besten anpassbaren Bot der Welt zu erstellen.\n\nAlle in %2 verfügbaren Befehle wurden von der Community mit der Programmiersprache %3 und dem Compiler %4 erstellt.\nAlle Module wurden so weit wie möglich mit dem %5-Parser gesichert.\n\n%6 befindet sich derzeit in Version %7.\nTreten Sie dem Support-Server bei, wenn Sie einen Fehler oder eine Schwachstelle finden oder wenn Sie Vorschläge haben.\n\nVielen Dank, dass Sie sich für %8 entschieden haben!"
+  "BOT_MAIN_INFO": "Verwenden Sie %1, um den am besten anpassbaren Bot der Welt zu erstellen.\n\nAlle in %2 verfügbaren Befehle wurden von der Community mit der Programmiersprache %3 und dem Compiler %4 erstellt.\nAlle Module wurden so weit wie möglich mit dem %5-Parser gesichert.\n\n%6 befindet sich derzeit in Version %7.\nTreten Sie dem Support-Server bei, wenn Sie einen Fehler oder eine Schwachstelle finden oder wenn Sie Vorschläge haben.\n\nVielen Dank, dass Sie sich für %8 entschieden haben!",
+  "KEY_IS": "Ihr API-Schlüssel lautet: %1.",
+  "HELP_API": "Um Ihren API-Authentifizierungscode zu erhalten. (Zur Verwendung im Authorization-Header jeder Anfrage, die Sie an diese API stellen)."
 }

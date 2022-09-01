@@ -89,5 +89,7 @@
   "HELP_BUILD_COMMAND": "Brug denne kommando til at oprette en offentlig kommando på robotten og bruge den.Du skal importere en JavaScript-fil for at udføre denne kommando.",
   "HELP_EDIT": "Brug denne kommando, hvis du vil redigere en kommando, som du allerede har lavet.",
   "HELP_DELETE_COMMAND": "Brug denne kommando til at fjerne en brugerdefineret kommando fra denne server.",
-  "HELP_STORE_PAGE": "Den side, som du vil vælge for at finde andre kommandoer."
+  "HELP_STORE_PAGE": "Den side, som du vil vælge for at finde andre kommandoer.",
+  "KEY_IS": "Din API-nøgle er: %1.",
+  "HELP_API": "Sådan får du din API-godkendelseskode. (Til brug i Authorization headeren i alle anmodninger, som du vil lave til denne api.)"
 }

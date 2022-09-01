@@ -89,5 +89,7 @@
   "NOT_ALLOWED_BUTTON": "No está permitido hacer clic en este botón.",
   "NOT_COMMAND_ID": "Tienes que introducir un ID de comando. Ejemplo: %1.",
   "COMMAND_ALIASES": "Alias de comandos",
-  "HELP_REFRESH_SLASH": "Si acaba de añadir/eliminar un comando de su servidor, tendrá que actualizar los comandos de la barra del servidor para evitar tener comandos \"fantasmas\" o no ver el comando que acaba de añadir."
+  "HELP_REFRESH_SLASH": "Si acaba de añadir/eliminar un comando de su servidor, tendrá que actualizar los comandos de la barra del servidor para evitar tener comandos \"fantasmas\" o no ver el comando que acaba de añadir.",
+  "KEY_IS": "Su clave API es: %1.",
+  "HELP_API": "Para obtener su código de autenticación de la API. (Para utilizarlo en la cabecera de Autorización de cada una de las peticiones que realices a esta api)."
 }

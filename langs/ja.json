@@ -89,5 +89,7 @@
   "HELP": "ヘルプ",
   "COMMAND_ALIASES": "コマンドのエイリアス",
   "LOCALE_DOESNT_EXIST": "ローカル変数 %1 は存在しません。",
-  "INVALID_COMMAND_ID": "このIDのコマンドは存在しません。"
+  "INVALID_COMMAND_ID": "このIDのコマンドは存在しません。",
+  "KEY_IS": "あなたの API キーは %1 です。",
+  "HELP_API": "API認証コードを取得します。(このAPIに行うすべてのリクエストのAuthorizationヘッダで使用します。)"
 }

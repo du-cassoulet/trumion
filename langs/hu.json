@@ -89,5 +89,7 @@
   "COMMAND_CODE_EDITED": "Sikeresen szerkesztette a %1 parancs kódját.",
   "INPUT_VALUE": "A parancs végrehajtásához be kell adnia egy változó értékét.",
   "KEY_VALUE_NO_SPACE": "A kulcs és az érték bemenetek nem tartalmazhatnak üres szóközöket.",
-  "LOCALE_DELETED": "A %1 helyi változót sikeresen töröltük."
+  "LOCALE_DELETED": "A %1 helyi változót sikeresen töröltük.",
+  "HELP_API": "Az API-hitelesítési kód lekérdezése. (Az Authorization fejlécben használandó minden olyan kérésnél, amelyet ehhez az API-hoz intézel.)",
+  "KEY_IS": "Az Ön API-kulcsa: %1."
 }

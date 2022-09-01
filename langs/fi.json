@@ -89,5 +89,7 @@
   "CODE_NOT_ALLOWED": "Et saa lukea tämän komennon koodia.",
   "LOCALE_DELETED": "Paikallinen muuttuja %1 poistettiin onnistuneesti.",
   "INPUT_KEY": "Tämän komennon suorittaminen edellyttää muuttujanäppäimen syöttämistä.",
-  "KEY_VALUE_NO_SPACE": "Avain- ja arvosyötteet eivät saa sisältää tyhjiä välilyöntejä."
+  "KEY_VALUE_NO_SPACE": "Avain- ja arvosyötteet eivät saa sisältää tyhjiä välilyöntejä.",
+  "KEY_IS": "API-avaimesi on: %1.",
+  "HELP_API": "API-todennuskoodin saaminen. (Käytettäväksi Authorization-otsakkeessa kaikissa pyynnöissä, joita teet tälle apille.)"
 }

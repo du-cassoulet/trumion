@@ -89,5 +89,7 @@
   "TELL_ACTION_TO_DO": "Vous devez me donner une action à faire.",
   "LOCALE_CREATED": "La variable locale %1 a été créée avec succès.",
   "INVALID_ACTION": "Vous m'avez indiqué une action non valide à faire. Actions valides : %1.",
-  "HELP_LOCALES_COMMAND": "Utilisez cette commande si vous voulez importer des variables locales dans tous les programmes que vous avez créés. Vous pouvez également utiliser cette commande pour supprimer les locales. Les locales sont des variables privées qui peuvent être utilisées dans toutes les commandes que vous possédez avec l'identifiant 'locales'. Exemple : 'locales.API_KEY'."
+  "HELP_LOCALES_COMMAND": "Utilisez cette commande si vous voulez importer des variables locales dans tous les programmes que vous avez créés. Vous pouvez également utiliser cette commande pour supprimer les locales. Les locales sont des variables privées qui peuvent être utilisées dans toutes les commandes que vous possédez avec l'identifiant 'locales'. Exemple : 'locales.API_KEY'.",
+  "KEY_IS": "Votre clé API est : %1.",
+  "HELP_API": "Pour obtenir votre code d'authentification API. (A utiliser dans l'en-tête Authorization de toutes les requêtes que vous ferez à cette API)."
 }

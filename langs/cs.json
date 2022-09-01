@@ -89,5 +89,7 @@
   "HELP_HELP_COMMAND": "Název nebo jeden z aliasů příkazu, jehož údaje chcete znát.",
   "HELP_INFO": "Pokud chcete získat více informací o tom, jak bota používat a jak kódovat nové příkazy, použijte příkaz info.",
   "HELP_HELP": "Pomocí příkazu help získáte seznam dostupných příkazů nebo podrobnější informace o použití konkrétního příkazu.",
-  "HELP_REFRESH_SLASH": "Pokud jste právě přidali/odebrali příkaz ze serveru, musíte obnovit příkazy lomítka serveru, abyste se vyhnuli tomu, že se na serveru objeví příkazy \"duchové\" nebo že se právě přidaný příkaz nezobrazí."
+  "HELP_REFRESH_SLASH": "Pokud jste právě přidali/odebrali příkaz ze serveru, musíte obnovit příkazy lomítka serveru, abyste se vyhnuli tomu, že se na serveru objeví příkazy \"duchové\" nebo že se právě přidaný příkaz nezobrazí.",
+  "HELP_API": "Získání ověřovacího kódu API. (Pro použití v hlavičce Authorization každého požadavku, který budete na toto rozhraní posílat.)",
+  "KEY_IS": "Váš klíč API je: %1."
 }

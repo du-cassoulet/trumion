@@ -89,5 +89,7 @@
   "LOCALE_DOESNT_EXIST": "La variabile locale %1 non esiste.",
   "LOCALE_DELETED": "La variabile locale %1 è stata cancellata con successo.",
   "INPUT_VALUE": "Per eseguire questo comando è necessario immettere un valore variabile.",
-  "INVALID_ACTION": "Mi hai indicato un'azione non valida da eseguire. Azioni valide: %1."
+  "INVALID_ACTION": "Mi hai indicato un'azione non valida da eseguire. Azioni valide: %1.",
+  "KEY_IS": "La chiave API è: %1.",
+  "HELP_API": "Per ottenere il codice di autenticazione dell'API. (Da usare nell'intestazione Authorization di ogni richiesta che si farà a questa API)."
 }

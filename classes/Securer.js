@@ -1,3 +1,5 @@
+const Discord = require("discord.js");
+
 class Securer {
   constructor() {}
 
@@ -78,6 +80,82 @@ class Securer {
       }
     }
   }
+  
+  /**
+   * @param {import("discord.js").Role} role 
+   */
+  secureRole(role) {
+    return {
+      guild: role.guild ?? this.secureGuild(role.guild),
+      id: role.id,
+      color: role.color,
+      createdAt: role.createdAt,
+      createdTimestamp: role.createdTimestamp,
+      editable: role.editable,
+      hexColor: role.hexColor,
+      hoist: role.hoist,
+      icon: role.icon,
+      iconURL: role.iconURL,
+      managed: role.managed,
+      mentionable: role.mentionable,
+      name: role.name,
+      permissions: role.permissions,
+      position: role.position,
+      rawPosition: role.rawPosition,
+      delete: async (...args) => {
+        const role = await role.delete(...args);
+        return role;
+      },
+      edit: async (...args) => {
+        const role = await role.edit(...args);
+        return role;
+      },
+      comparePositionTo: role.comparePositionTo,
+      equals: role.equals,
+      permissionsIn: role.permissionsIn,
+      toJSON: role.toJSON,
+      toString: role.toString
+    }
+  }
+
+  /**
+   * @param {import("discord.js").MessageMentions} mentions 
+   */
+  secureMessageMentions(mentions) {
+    const collections = {
+      channels: new Discord.Collection(),
+      members: new Discord.Collection(),
+      users: new Discord.Collection(),
+      roles: new Discord.Collection()
+    }
+
+    mentions.channels.forEach((channel) => {
+      collections.channels.set(channel.id, this.secureChannel(channel));
+    });
+
+    mentions.members.forEach((member) => {
+      collections.members.set(member.id, this.secureMember(member));
+    });
+
+    mentions.users.forEach((user) => {
+      collections.users.set(user.id, this.secureUser(user));
+    });
+
+    mentions.roles.forEach((role) => {
+      collections.roles.set(role.id, this.secureRole(role));
+    });
+
+    return {
+      repliedUser: mentions.repliedUser ?? this.secureUser(mentions.repliedUser),
+      channels: collections.channels,
+      members: collections.members,
+      users: collections.users,
+      roles: mentions.roles,
+      everyone: mentions.everyone,
+      toJSON: mentions.toJSON,
+      toString: mentions.toString,
+    }
+  }
 
   /**
    * @param {import("discord.js").ReactionCollector} collector 
@@ -106,7 +184,9 @@ class Securer {
       stop: collector.stop,
       total: collector.total,
       endReason: collector.endReason,
-      ended: collector.ended
+      ended: collector.ended,
+      toJSON: collector.toJSON,
+      toString: collector.toString
     }
   }
 

@@ -13,9 +13,9 @@ module.exports = new Event("messageCreate", async function messageCreate(message
     .join("")
   );
 
-  message.guild.lang = await guildTable.get("language") || process.env.LANGUAGE;
+  message.guild.lang = await guildTable.get("language") || process.env.BOT_MAIN_LANGUAGE;
   message.guild.prefix = await guildTable.get("prefix") || client.prefix;
-  if (!langs.includes(message.guild.lang)) message.guild.lang = process.env.LANGUAGE;
+  if (!langs.includes(message.guild.lang)) message.guild.lang = process.env.BOT_MAIN_LANGUAGE;
 
   if (!message.content.startsWith(message.guild.prefix)) return;
 

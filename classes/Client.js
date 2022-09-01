@@ -32,7 +32,7 @@ class Client extends Discord.Client {
       rest
     });
 
-    this.prefix = process.env.PREFIX;
+    this.prefix = process.env.BOT_MAIN_PREFIX;
 
     /** @type {Discord.ColorResolvable} */
     this.embedColor = "DarkerGrey";

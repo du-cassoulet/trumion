@@ -10,7 +10,7 @@ globalThis.translator = new Translator();
 globalThis.client = new Client();
 globalThis.utils = utils;
 globalThis.database = new QuickDB({
-  filePath: "./database.sqlite"
+  filePath: process.env.DATABASE_PATH
 });
 globalThis.tables = {
   users: database.table("users"),
@@ -18,4 +18,4 @@ globalThis.tables = {
   commands: database.table("commands")
 }
 
-client.start(process.env.TOKEN);
+client.start(process.env.BOT_TOKEN);

@@ -3,8 +3,12 @@ code/
 test/
 
 database.sqlite
+
 package-lock.json
+
+yarn-error.log
 yarn.lock
+
 translate.js
-code
+
 .env

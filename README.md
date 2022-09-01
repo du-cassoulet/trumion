@@ -66,24 +66,24 @@ const { data } = axios.get("https://api.trumion.tech/commands?slice=1");
 
 console.log(data);
 /*
-[
-  {
-    "cid": "cmd-0x3b8d0860",
-    "name": "wasted",
-    "description": "You are now wasted :(.",
-    "createdAt": 1661967660442,
-    "guilds": [
-      "973949535359475814",
-      "1014537202304303214"
-    ],
-    "usages": 5,
-    "privacy": "use-and-read",
-    "author": {
-      "id": "532631412717649941",
-      "tag": "DU CASSOULET#0666"
+  [
+    {
+      "cid": "cmd-0x3b8d0860",
+      "name": "wasted",
+      "description": "You are now wasted :(.",
+      "createdAt": 1661967660442,
+      "guilds": [
+        "973949535359475814",
+        "1014537202304303214"
+      ],
+      "usages": 5,
+      "privacy": "use-and-read",
+      "author": {
+        "id": "532631412717649941",
+        "tag": "DU CASSOULET#0666"
+      }
     }
-  }
-]
+  ]
 */
 ```
 
@@ -99,24 +99,23 @@ const GUILD_AUTH = '4fe247fd6ea8562b08149df014386991'
 const { data } = axios.get("https://api.trumion.tech/commands/cmd-0x3b8d0860");
 
 console.log(data);
-
 /*
-{
-  "cid": "cmd-0x3b8d0860",
-  "name": "wasted",
-  "description": "You are now wasted :(.",
-  "code": "const { EmbedBuilder } = module(\"discord.js\");\r\nlet link = `https://some-random-api.ml/canvas/wasted/?avatar=${message.author.displayAvatarURL({ format: \"png\" })}`;\r\n\r\nconst embed = new EmbedBuilder().setTitle(`Wasted`).setImage(link);\r\nmessage.channel.send({ embeds: [embed] });",
-  "createdAt": 1661967660442,
-  "guilds": [
-    "973949535359475814",
-    "1014537202304303214"
-  ],
-  "usages": 5,
-  "privacy": "use-and-read",
-  "author": {
-    "id": "532631412717649941",
-    "tag": "DU CASSOULET#0666"
+  {
+    "cid": "cmd-0x3b8d0860",
+    "name": "wasted",
+    "description": "You are now wasted :(.",
+    "code": "const { EmbedBuilder } = module(\"discord.js\");\r\nlet link = `https://some-random-api.ml/canvas/wasted/?avatar=${message.author.displayAvatarURL({ format: \"png\" })}`;\r\n\r\nconst embed = new EmbedBuilder().setTitle(`Wasted`).setImage(link);\r\nmessage.channel.send({ embeds: [embed] });",
+    "createdAt": 1661967660442,
+    "guilds": [
+      "973949535359475814",
+      "1014537202304303214"
+    ],
+    "usages": 5,
+    "privacy": "use-and-read",
+    "author": {
+      "id": "532631412717649941",
+      "tag": "DU CASSOULET#0666"
+    }
   }
-}
 */
 ```

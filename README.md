@@ -62,7 +62,11 @@ import axios from "axios";
 
 const GUILD_AUTH = '4fe247fd6ea8562b08149df014386991'
 
-const { data } = axios.get("https://api.trumion.tech/commands?slice=1");
+const { data } = axios.get("https://api.trumion.tech/commands?slice=1", {
+    headers: {
+        'Authorization': GUILD_AUTH
+    }
+});
 
 console.log(data);
 /*
@@ -96,7 +100,11 @@ import axios from "axios";
 
 const GUILD_AUTH = '4fe247fd6ea8562b08149df014386991'
 
-const { data } = axios.get("https://api.trumion.tech/commands/cmd-0x3b8d0860");
+const { data } = axios.get("https://api.trumion.tech/commands/cmd-0x3b8d0860", {
+    headers: {
+        'Authorization': GUILD_AUTH
+    }
+});
 
 console.log(data);
 /*
